@@ -11,8 +11,6 @@ https://s-bot.woza.work/
 
 <br>
 
-<br>
-
 ## Quick Info
 - Supports both voice and text inputs
 - Mobile optimized web app
@@ -42,4 +40,14 @@ https://s-bot.woza.work/
 
 - List of Free Language Practice Chatbots<br>
 https://github.com/vbookshelf/List-of-Free-Language-Practice-Chatbots
+
+<br>
+
+## Revision History
+
+Version 1.0<br>
+22-October-2026<br>
+Released for testing.
+
+<br>
 
