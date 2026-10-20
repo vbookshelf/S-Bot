@@ -10,3 +10,12 @@ Live Demo:<br>
 https://s-bot.woza.work/
 
 <br>
+
+## References
+
+- Tips and Tricks to Help You Learn Spanish Grammar<br>
+  https://silasduguid.wordpress.com/2015/05/09/tips-and-tricks-to-help-you-learn-spanish-grammar/
+
+- List of Free Language Practice Chatbots<br>
+https://github.com/vbookshelf/List-of-Free-Language-Practice-Chatbots
+
