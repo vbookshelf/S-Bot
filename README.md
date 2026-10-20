@@ -7,6 +7,6 @@ Spanish Bot (S-Bot) is a free AI powered chatbot for practicing Spanish conversa
 
 Live Demo:<br>
 <img src="images/image2.png" alt="QR Code" width="150"> <br>
-https://d-bot.woza.work/
+https://s-bot.woza.work/
 
 <br>
