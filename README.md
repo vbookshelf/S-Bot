@@ -21,6 +21,11 @@ https://s-bot.woza.work/
 
 <br>
 
+<img src="images/image5.png" alt="App desktop screenshot" height="500">
+<p>Formality, Region and Gender settings</p>
+
+<br>
+
 
 ## Quick Info
 - Supports both voice and text inputs
