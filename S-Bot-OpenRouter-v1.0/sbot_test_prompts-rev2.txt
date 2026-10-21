@@ -1,0 +1,128 @@
+Test 1: Informal, male bot self-description
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Male. Clicking Bot: Male should show the voice alert once.
+Send: Preséntate y dime cómo te sientes hoy.
+Expect: the correction shows ---. The bot uses tú forms only (estás, tienes, contigo), never usted, vosotros or vos. It describes itself with masculine forms (estoy encantado, soy profesor, tu amigo), never feminine.
+
+
+Test 2: Formal, user writes with tú, female bot
+Settings: Style: Formal, Region: Latin America, You: Male, Bot: Female
+Send: ¿Cómo estás? ¿Tienes tiempo para ayudarme? ¿A qué te dedicas?
+Expect: the correction shows ¿Cómo está usted? ¿Tiene tiempo para ayudarme? ¿A qué se dedica usted? The bot replies with usted/le/su only, never tú, te, tu, eres or tienes. It answers the last question with feminine self-forms (soy profesora, estoy encantada). It may address the user as señor.
+
+
+Test 3: Informal, user writes with usted, female bot
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Female
+Send: ¿Cómo está usted? ¿Puede ayudarme? ¿A qué se dedica usted?
+Expect: the correction shows ¿Cómo estás? ¿Puedes ayudarme? ¿A qué te dedicas? The bot replies with tú forms only, never usted. It answers the last question with feminine self-forms (soy profesora, soy tu amiga).
+
+
+Test 4: User gender agreement (male user), with a bot-gender bleed check
+Settings: Style: Informal, Region: Latin America, You: Male, Bot: Female
+Step 1. Send: Estoy muy cansada hoy. ¿Y tú, cómo te sientes?
+Expect: the correction shows Estoy muy cansado hoy. ¿Y tú, cómo te sientes? The bot may say cansado about the user, but any description of itself is feminine (estoy cansada, encantada), never masculine. The user's gender must not bleed into the bot's voice.
+Step 2. Send: Mi hermana está cansada.
+Expect: the correction shows ---, with no change, because the word describes someone else.
+
+
+Test 5: User gender agreement (female user), with a bot-gender bleed check
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Male
+Step 1. Send: Estoy muy cansado hoy. ¿Y tú, cómo te sientes?
+Expect: the correction shows Estoy muy cansada hoy. ¿Y tú, cómo te sientes? Any description of the bot itself is masculine (estoy cansado, contento), never feminine.
+
+
+Test 6: Mixed-group noun (proofreader over-correction check)
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Female
+Send: Somos tres amigos y queremos practicar contigo.
+Expect: the correction shows --- or leaves amigos alone, since amigos is valid for a mixed group and the other two people are not described as women. Changing it to amigas is a soft failure: note it, but it doesn't block the test run.
+
+
+Test 7: Spain vocabulary
+Settings: Style: Informal, Region: Spain, You: Female, Bot: Female
+Send: ¿Qué bebes por la mañana si te gusta la naranja, qué verdura comes frita, cómo vas al trabajo y qué usas para llamar por teléfono?
+Expect: the correction shows ---. The bot answers with Spain words (zumo, patata, coche or metro, móvil), tú forms, and no voseo. Any Latin American word (jugo, papa, carro, celular) is a failure.
+
+Test 8: Latin America vocabulary
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Female
+Send: ¿Qué bebes por la mañana si te gusta la naranja, qué verdura comes frita, cómo vas al trabajo y qué usas para llamar por teléfono?
+Expect: the correction shows ---. The bot answers with Latin American words (jugo, papa, carro or auto, celular), tú forms, and no voseo. Any Castilian word (zumo, patata, coche, móvil) is a failure.
+
+Test 9: Plural address, Spain
+Settings: Style: Informal, Region: Spain, You: Female, Bot: Female
+Send: Somos tres estudiantes y queremos practicar contigo. ¿Qué nos recomiendas?
+Expect: the correction shows --- (estudiantes has no gender). The bot addresses the group with vosotros forms (sois, tenéis, queréis, os apetece, vuestro), never ustedes.
+
+Test 10: Plural address, Latin America
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Female
+Send: Somos tres estudiantes y queremos practicar contigo. ¿Qué nos recomiendas?
+Expect: the correction shows ---. The bot addresses the group with ustedes forms (son, tienen, quieren, les, su), never vosotros, vuestro or os.
+
+Test 11: Voseo
+Settings: Style: Informal, Region: Latin America, You: Male, Bot: Female
+Send: ¿Vos querés un café? ¿Tenés tiempo?
+Expect: the correction shows ¿Quieres un café? ¿Tienes tiempo? The bot replies with tú forms and no voseo (no vos, querés, tenés, podés).
+Known issue: this failed in the last run (querés stayed in the correction), so it should fail until the proofreader prompt is updated.
+
+Test 12: Vulgar words
+Settings: Style: Informal, Region: Latin America, You: Male, Bot: Female
+Send: Joder, qué mierda de día.
+Expect: the correction contains neither joder nor mierda, and is something like Qué día tan malo. The bot replies kindly with tú forms and no vulgar words.
+Known issue: joder stayed in the last run, so it should fail until the proofreader prompt is updated.
+
+Test 13: Formal, Spain
+Settings: Style: Formal, Region: Spain, You: Female, Bot: Male
+Send: ¿Cómo estás? ¿Qué te gusta beber por la mañana y cómo vas al trabajo?
+Expect: the correction shows ¿Cómo está usted? ¿Qué le gusta beber por la mañana y cómo va usted al trabajo? The bot replies with usted forms only, never tú, te or tu. It uses Spain vocabulary where it applies (zumo, coche) and masculine self-forms, and never uses vosotros.
+
+
+Test 14: Unlisted adjectives (gap in the regex check)
+Settings: Style: Informal, Region: Latin America, You: Female, Bot: Male
+Send: ¿Cómo es tu personalidad? Descríbete con tres adjetivos que no sean sobre tu estado de ánimo.
+Expect: the correction shows ---. All three adjectives are masculine (simpático, trabajador, sereno, atento...). Read the reply yourself. Words such as simpático, trabajador, sereno and atento are not in the regex list, so a feminine slip would not trigger the automatic rewrite. A failure here means the adjective list needs to grow.
+
+
+Test 15: Switching settings mid-chat (the one test with two sets of settings)
+Step 1. Settings: Style: Formal, Region: Latin America, You: Female, Bot: Female
+Send: Hoy hace muy buen tiempo. ¿A qué se dedica usted?
+Expect: the correction shows ---. The bot replies with usted and feminine self-forms (soy profesora).
+Step 2. Switch to Style: Informal, Region: Latin America, You: Female, Bot: Male. The voice alert appears when you click Bot: Male, if it hasn't already shown on this page visit.
+Send: Gracias, ¿y tú a qué te dedicas?
+Expect: the correction shows ---. The bot's next reply switches immediately to tú forms and masculine self-forms (soy profesor, tu amigo), even though its previous reply used usted and feminine forms. This checks that the JSON settings line beats the bot copying its earlier replies.
+
+
+Test 16: Settings persistence and the voice alert
+Settings: Style: Formal, Region: Spain, You: Male, Bot: Male
+Step 1. Click Bot: Male. The alert appears. Reload the page.
+Expect: the same four choices are still selected after the reload, and no alert appears on load.
+Step 2. Without reloading, click Bot: Female, then Bot: Male again.
+Expect: no alert, since it already showed on this page visit.
+Step 3. Reload the page and click Bot: Male once more.
+Expect: the alert appears again, since the page-visit flag resets on every load.
+
+
+Test 17: Translator, formal, female user
+Settings: Style: Formal, Region: Latin America, You: Female (set in the Translator overlay; Bot does not apply)
+Step 1. Translate: I am very tired.
+Expect: Estoy muy cansada.
+Step 2. Translate: Can you help me?
+Expect: ¿Puede ayudarme? (usted form, no tú.)
+
+
+Test 18: Translator, informal, male user
+Settings: Style: Informal, Region: Latin America, You: Male (set in the Translator overlay; Bot does not apply)
+Step 1. Translate: I am very tired.
+Expect: Estoy muy cansado.
+Step 2. Translate: Can you help me?
+Expect: ¿Puedes ayudarme? (tú form, no usted.)
+
+
+Test 19: Translator length limit
+Settings: Style: Informal, Region: Latin America, You: Female (set in the Translator overlay; Bot does not apply)
+Step 1. Paste about 1,100 characters of English text into the Translator input.
+Expect: the input stops at the limit (1,000 characters) and the counter reflects it. If the text goes through anyway, main.php rejects it with a message asking you to shorten it.
+Step 2. Trim the text to under 1,000 characters and translate.
+Expect: a normal translation, with no error.
+
+
+
+
+
