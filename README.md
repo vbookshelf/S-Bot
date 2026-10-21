@@ -57,7 +57,7 @@ https://github.com/vbookshelf/List-of-Free-Language-Practice-Chatbots
 ## Revision History
 
 Version 1.0<br>
-22-October-2026<br>
+21-October-2026<br>
 Released for testing.
 
 <br>
