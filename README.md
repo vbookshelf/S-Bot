@@ -54,6 +54,9 @@ https://s-bot.woza.work/
 - Tips and Tricks to Help You Learn Spanish Grammar<br>
   https://silasduguid.wordpress.com/2015/05/09/tips-and-tricks-to-help-you-learn-spanish-grammar/
 
+- E-Bot English Practice Chatbot<br>
+https://github.com/vbookshelf/E-Bot-2026
+
 - List of Free Language Practice Chatbots<br>
 https://github.com/vbookshelf/List-of-Free-Language-Practice-Chatbots
 
